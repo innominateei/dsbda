@@ -1,0 +1,60 @@
+import pandas as pd 
+import numpy as np 
+
+# Read the iris.csv file into a pandas dataframe
+df = pd.read_csv('iris.csv')
+
+# Display the dataframe
+df
+
+# Display the shape of the dataframe (number of rows and columns)
+df.shape
+
+# Display the count of null values in each column
+df.isnull().sum()
+
+# Display the datatype of each column
+df.dtypes
+
+# Display the information of the dataframe including column names, non-null count and datatype
+df.info()
+
+# Drop the 'Id' column from the dataframe and update the dataframe
+df.drop(columns = 'Id', inplace = True)
+df
+
+# Display the descriptive statistics of the dataframe
+df.describe()
+
+# Display the mean of 'SepalLengthCm' column
+np.mean(df['SepalLengthCm'])
+
+# Display the mean of 'SepalWidthCm' column
+np.mean(df['SepalWidthCm'])
+
+# Display the mean of 'PetalLengthCm' column
+np.mean(df['PetalLengthCm'])
+
+# Display the mean of 'PetalWidthCm' column
+np.mean(df['PetalWidthCm'])
+
+# Display the mean of all columns in the dataframe
+np.mean(df)
+
+# Display the standard deviation of all columns in the dataframe
+np.std(df)
+
+# Display the minimum value of all columns in the dataframe
+np.min(df)
+
+# Display the maximum value of all columns in the dataframe
+np.max(df)
+
+# Display the 25th percentile of all columns in the dataframe
+df.quantile(0.25)
+
+# Display the 50th percentile of all columns in the dataframe
+df.quantile(0.50)
+
+# Display the 75th percentile of all columns in the dataframe
+df.quantile(0.75)

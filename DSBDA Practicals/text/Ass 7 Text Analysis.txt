@@ -1,0 +1,136 @@
+import pandas as pd 
+import numpy as np 
+
+df = pd.read_csv('StudentPerformance.csv')
+
+df
+
+df.shape
+
+df.isnull().sum()
+
+df.isnull()
+
+df['math_score'] = df['math_score'].interpolate()
+df
+
+df.isnull().sum()
+
+df['writing_score'] = df['writing_score'].fillna(method='ffill')
+df
+
+df.isnull().sum()
+
+df['placement_score'] = df['placement_score'].fillna(method='bfill')
+df
+
+df.isnull().sum()
+
+df['club_join_date'] = df['club_join_date'].replace(to_replace=np.nan, value='2019')
+df
+
+df.isnull().sum()
+
+df['placement_offer_count'] = df['placement_offer_count'].fillna('1')
+df
+
+df.isnull().sum()
+
+df.dtypes
+
+df['math_score'] = df['math_score'].astype('int64')
+df['reading_score'] = df['reading_score'].astype('int64')
+df['writing_score'] = df['writing_score'].astype('int64')
+df['placement_score'] = df['placement_score'].astype('int64')
+df['club_join_date'] = df['club_join_date'].astype('int64')
+df['placement_offer_count'] = df['placement_offer_count'].astype('int64')
+df.dtypes
+
+columns = ['math_score','reading_score', 'writing_score', 'placement_score']
+df.boxplot(columns)
+
+np.where(df['math_score']<60)
+
+np.where(df['math_score']>80)
+
+np.where(df['reading_score']<75)
+
+np.where(df['reading_score']>95)
+
+np.where(df['writing_score']<60)
+
+np.where(df['writing_score']>80)
+
+np.where(df['placement_score']<75)
+
+np.where(df['placement_score']>100)
+
+np.where((df['placement_score'] < 75) & (df['placement_offer_count'] > 1)) 
+
+np.where(((df['placement_score'] › 75) & (df['placement_score'] <= 85))
+& ((df['placement_offer_count'] › 2) | (df['placement_offer_count'] ‹ 2) )) 
+
+np.where((df['placement_score'] › 85) & (df['placement_offer_count'] < 3)) 
+
+df[(df['math_score'] ‹ 60)   |	(df['math_score'] › 80)]
+
+df[(df['reading score'] < 75) | (df['reading score'] > 95)]
+
+df[(df['writing_score'] < 60)  | 	(df['writing_score'] > 80)]
+
+df[(df['placement_score'] < 75)	 | (df['placement_score'] › 100)]
+
+df[(df['club_join_date'] < 2018)   |	(df['club_join_date'] > 2021)]
+
+df[(df['placement score'] < 75) & (df['placement offer count'] › 1)]
+
+df[((df['placement score'] › 75) & (df['placement score'] ‹= 85))
+& ((df['placement offer count'] » *) | (df['placement offer count'] ‹ 2))]
+
+df[((df['placement_score'] > 85) & (df['placement_offer_count'] < 3))]
+
+new_df1 = df[
+((df.math_score >= 60) & (df.math_score ‹= 80)) & 
+((df.reading_score ›= 75) & (df.reading_score <= 95)) & 
+((df.writing score ›= 60) & (df.writing score ‹= 80)) & 
+((df.placement_score ›= 75) & (df.placement_score ‹= 100)) &
+ ((df.club_join_date ›= 2018) & (df.club_join_date ‹= 2021))]
+
+new df1
+
+new_df1[(new_df1['placement_score'] ‹ 75) & (new_df1['placement_offer_count'] › 1)]
+
+new_df1[((new_df1['placement_score'] >= 75) & (new_df1['placement_score'] <= 85))
+& ((new_df1['placement_offer_count'] > 2) | (new_df1['placement_offer_count'] < 2))]
+
+new_df1[((new_df1['placement score'] › 85) & (new_df1['placement offer count'] ‹ 3))]
+
+new_df2 = new_df1[
+((new_df1.placement_score < 75) & (new_df1.placement_offer_count==1)) |
+(((new_df1.placement_score ›= 75) & (new_df1.placement_score <= 85)) & 
+((new_df1.placement_score › 85) & (new_df1.placement_offer_count==3))]
+
+new_df2
+
+new_df2.shape
+
+new_df2[(new_df2['math_score'] ‹ 60) | (new_df2['math_score'] › 80)]
+
+new_df2[(new_df2['reading_score'] ‹ 75) | (new_df2['reading_score'] › 95)]
+
+new_df2[(new_df2['writing_score'] < 60) |	(new_df2['writing_score'] › 80)]
+
+new_df2[(new_df2['placement_score'] < 75) | (new_df2['placement_score'] › 100)]
+
+new_df2[(new_df2['club_join_date'] < 2018)   |	(new_df2['club_join_date'] › 2021)]
+
+new_df2[(new-df2['placement_score'] < 75) & (new_df2['placement_offer_count'] > 1)]
+
+new_df2[((new_df2['placement_score'] > 75) & (new_df2['placement_score'] <= 85))
+& ((new_df2['placement_offer_count'] > 2) | (new_df2['placement_offer_count'] ‹ 2))]
+
+new_df2[(new-df2['placement_score'] > 85) & (new_df2['placement_offer_count'] < 3))]
+
+from sklearn.preprocessing import MinMaxScaler scaling = MinMaxScaler()
+scaling = MinMaxScaler()
+scaling.fit_transform(new_df2[['math_score','reading_score','writing_score','placement']])

@@ -1,0 +1,116 @@
+import pandas as pd  # import the pandas library as pd
+import numpy as np  # import the numpy library as np
+import matplotlib.pyplot as plt  # import the matplotlib.pyplot module as plt 
+%matplotlib inline  # this line is a magic command to display plots inline in Jupyter notebooks
+import seaborn as sns  # import the seaborn library as sns
+
+df = pd.read_csv('iris.csv')  # read the 'iris.csv' file using pandas and store the data in df
+
+df  # display the dataframe df
+
+df.shape  # display the shape of the dataframe df
+
+df.columns  # display the column names of the dataframe df
+
+df.dtypes  # display the data types of the columns in the dataframe df
+
+df.info()  # display the info about the dataframe df
+
+df.describe()  # display the descriptive statistics of the dataframe df
+
+df.isnull()  # display a boolean mask of the dataframe df where True represents a missing value
+
+df.isnull().sum()  # display the number of missing values in each column of the dataframe df
+
+df.drop(columns = "Id", inplace=True)  # drop the column named "Id" from the dataframe df and update the dataframe in place
+df.head()  # display the first 5 rows of the updated dataframe df
+
+sns.relplot(data = df, x = 'SepalWidthCm', y = 'SepalLengthCm', hue = 'Species')  # plot a scatter plot of SepalWidthCm vs SepalLengthCm with different colors for different Species using seaborn
+
+sns.relplot(data = df, x = 'PetalLengthCm', y = 'PetalWidthCm', hue = 'Species')  # plot a scatter plot of PetalLengthCm vs PetalWidthCm with different colors for different Species using seaborn
+
+sns.pairplot(df, hue = 'Species')  # plot pairwise relationships in the dataset with different colors for different Species using seaborn
+
+-------------------------------------------------------------------------------
+
+plt.figure(figsize = (15,10))  # create a new figure with the specified size
+plt.subplot(2,2,1)  # create a subplot in the figure with 2 rows, 2 columns, and the first position
+sns.boxplot(data = df, x = 'Species', y = 'PetalLengthCm')  # plot a boxplot of PetalLengthCm for different Species using seaborn
+
+plt.subplot(2,2,2)  # create a subplot in the figure with 2 rows, 2 columns, and the second position
+sns.boxplot(data = df, x = 'Species', y = 'PetalWidthCm')  # plot a boxplot of PetalWidthCm for different Species using seaborn
+
+plt.subplot(2,2,3)  # create a subplot in the figure with 2 rows, 2 columns, and the third position
+sns.boxplot(data = df, x = 'Species', y = 'SepalLengthCm')  # plot a boxplot of SepalLengthCm for different Species using seaborn
+
+plt.subplot(2,2,4)  # create a subplot in the figure with 2 rows, 2 columns, and the fourth position
+sns.boxplot(data = df, x = 'Species', y = 'SepalWidthCm')  # plot a boxplot of SepalWidthCm for different Species using seaborn
+
+--------------------------------------------------------------------------------------
+
+sns.boxplot(data = df).set_title("Distribution of Sepal-Length, Sepal-Width, Petal-Length, Sepal-Width")  # plot a boxplot of all columns in the dataframe df and set a title for the plot
+
+df.corr()  # display the correlation matrix of the dataframe df
+
+plt.subplots(figsize = (8,8))  # create a new figure with the specified size
+sns.heatmap(df.corr(), annot = True, fmt = "f").set_title("Correlation of attributes")  # plot a heatmap of the correlation matrix of the dataframe df with annotations and set a title for the plot
+
+x = df.iloc[:,0:4].values  # create a numpy array x containing the values of the first 4 columns (features) of the dataframe df
+x  # display the numpy array x
+
+y = df.iloc[:, 4].values  # create a numpy array y containing the values of the last column (target) of the dataframe df
+y  # display the numpy array y
+
+from sklearn.preprocessing import LabelEncoder  # import the LabelEncoder class from the scikit-learn library
+le = LabelEncoder()  # create a LabelEncoder object le
+y = le.fit_transform(y)  # fit the LabelEncoder object le to the numpy array y and transform y to a numeric array
+y  # display the transformed numpy array y
+
+from sklearn.model_selection import train_test_split  # import the train_test_split function from the scikit-learn library
+x_train, x_test, y_train, y_test = train_test_split(x,y, test_size = 0.3, random_state=42)  # split the data into training and testing sets using the train_test_split function and a test size of 30% and a random state of 42
+
+x_train  # display the training set of features
+
+x_train.shape  # display the shape of the training set of features
+
+x_test  # display the testing set of features
+
+x_test.shape  # display the shape of the testing set of features
+
+y_train  # display the training set of target
+
+y_train.shape  # display the shape of the training set of target
+
+y_test  # display the testing set of target
+
+y_test.shape  # display the shape of the testing set of target
+
+from sklearn.naive_bayes import GaussianNB  # import the GaussianNB class from the scikit-learn library
+model = GaussianNB()  # create a GaussianNB object model
+model.fit(x_train, y_train)  # fit the GaussianNB object model to the training set of features and target
+
+prediction = model.predict(x_test)  # make predictions on the testing set of features using the trained model
+
+prediction  # display the predicted values
+
+y_test  # display the actual values
+
+from sklearn.metrics import confusion_matrix  # import the confusion_matrix function from the scikit-learn library
+cm = confusion_matrix(y_test, prediction)  # compute the confusion matrix using the actual values and the predicted values
+
+cm  # display the confusion matrix
+
+from sklearn.metrics import accuracy_score  # import the accuracy_score function from the scikit-learn library
+accuracy = accuracy_score(y_test, prediction)*100  # compute the accuracy score using the actual values and the predicted values and multiply by 100 to get the percentage
+
+accuracy  # display the accuracy score
+
+from sklearn.metrics import precision_score  # import the precision_score function from the scikit-learn library
+precision = precision_score(y_test, prediction, average = 'micro')*100  # compute the precision score using the actual values and the predicted values and multiply by 100 to get the percentage
+
+precision  # display the precision score
+
+from sklearn.metrics import recall_score  # import the recall_score function from the scikit-learn library
+recall = recall_score(y_test, prediction, average = 'micro')*100  # compute the recall score using the actual values and the predicted values and multiply by 100 to get the percentage
+
+recall  # display the recall score

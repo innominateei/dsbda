@@ -1,0 +1,46 @@
+ 
+
+# Import necessary libraries
+import numpy as np 
+import pandas as pd 
+import matplotlib.pyplot as plt 
+%matplotlib inline 
+import seaborn as sns 
+
+# Read the dataset from 'train.csv' file
+df = pd.read_csv('train.csv') 
+# Display the dataframe
+df
+
+# Display the first few rows of the dataframe
+df.head() 
+
+# Plot a distribution plot for 'Pclass' column
+sns.distplot(df['Pclass']) 
+
+# Plot a distribution plot for 'Age' column
+sns.distplot(df['Age'])
+
+# Plot a distribution plot for 'Age' column with 40 bins
+sns.distplot(df['Age'], bins=40) 
+
+# Plot a distribution plot for 'Age' column with 20 bins, without kernel density estimate and with rug plot
+sns.distplot(df['Age'], bins=20, kde=False, rug=True) 
+
+# Plot a joint plot between 'Age' and 'Fare' columns with scatter plot
+sns.jointplot(x=df['Age'], y=df['Fare'], kind='scatter') 
+
+# Plot a joint plot between 'Age' and 'Fare' columns with hexbin plot
+sns.jointplot(x=df['Age'], y=df['Fare'], kind='hex') 
+
+# Plot pairplot for the entire dataframe
+sns.pairplot(df) 
+
+# Plot a barplot showing the average 'Fare' for each 'Sex'
+sns.barplot(x=df['Sex'], y=df['Fare']) 
+
+# Plot a countplot for 'Pclass' column
+sns.countplot(df['Pclass']) 
+
+# Plot a distribution plot for 'Fare' column with histogram
+sns.distplot(df['Fare'], hist=True) 

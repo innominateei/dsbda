@@ -1,0 +1,62 @@
+from sklearn.datasets import load_boston
+boston = load_boston()
+
+print(boston)
+
+import pandas as pd 
+import numpy as np 
+from sklearn import linear_model
+from sklearn.model_selection import train_test_split
+
+# Create a pandas dataframe with the feature data and column names
+df_x = pd.DataFrame(boston.data, columns=boston.feature_names)
+
+# Create a pandas dataframe with the target variable data
+df_y = pd.DataFrame(boston.target)
+
+# Print the feature data dataframe
+df_x
+
+# Print the target variable dataframe
+df_y
+
+# Print statistical information about the feature data dataframe
+df_x.describe()
+
+# Print statistical information about the target variable dataframe
+df_y.describe()
+
+# Print the shape (dimensions) of the feature data dataframe
+df_x.shape
+
+# Print the column names of the feature data dataframe
+df_x.columns
+
+# Create a linear regression model
+reg = linear_model.LinearRegression()
+
+# Split the feature and target data into training and testing sets
+# Test set size is 30% of the data, and random seed is set to 42 for reproducibility
+x_train, x_test, y_train, y_test = train_test_split(df_x, df_y, test_size=0.3, random_state=42)
+
+# Fit the linear regression model to the training data
+reg.fit(x_train, y_train)
+
+# Print the coefficients (weights) learned by the linear regression model
+print(reg.coef_)
+
+# Use the trained model to make predictions on the test data
+y_pred = reg.predict(x_test)
+
+# Print the predicted target variable values for the test data
+print(y_pred)
+
+# Print the actual target variable values for the test data
+print(y_test)
+
+# Calculate the mean squared error between the predicted and actual target variable values
+print(np.mean((y_pred-y_test)**2))
+
+# Import and use the mean squared error metric from sklearn to calculate the same value
+from sklearn.metrics import mean_squared_error
+print(mean_squared_error(y_test, y_pred))

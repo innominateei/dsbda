@@ -1,0 +1,51 @@
+import pandas as pd                                            # Import pandas module for data manipulation
+import numpy as np                                             # Import numpy module for numerical operations
+
+df = pd.read_csv("train.csv")                                  # Read the train.csv file using pandas and store it in variable "df"
+df                                                             # Print the dataframe "df"
+
+df.shape                                                       # Print the shape of the dataframe "df"
+
+df.columns                                                     # Print the columns of the dataframe "df"
+
+df.size                                                        # Print the size of the dataframe "df"
+
+df.dtypes                                                      # Print the datatypes of the dataframe "df"
+
+df.isnull().sum()                                              # Print the sum of null values in each column of the dataframe "df"
+
+df.describe()                                                  # Print the statistical information of the dataframe "df"
+
+df.info()                                                      # Print the concise summary of the dataframe "df"
+
+df["Cabin"] = df["Cabin"].replace(to_replace=np.nan, value="unknown")   # Replace missing values in "Cabin" column with "unknown"
+df                                                             # Print the updated dataframe "df"
+
+df["Age"] = df["Age"].interpolate()                             # Interpolate missing values in "Age" column
+df                                                             # Print the updated dataframe "df"
+
+df["Embarked"].fillna(method="ffill", inplace=True)            # Fill missing values in "Embarked" column with the previous value
+df                                                             # Print the updated dataframe "df"
+
+df.isnull().sum()                                              # Print the sum of null values in each column of the dataframe "df"
+
+df["Age"] = df["Age"].astype('int64')                           # Convert datatype of "Age" column to int64
+df.dtypes                                                      # Print the datatypes of the dataframe "df"
+
+quantitative_data = pd.get_dummies(df.Embarked, prefix='Embarked')   # Create dummy variables for "Embarked" column
+quantitative_data                                             # Print the new dataframe "quantitative_data"
+
+df = df.join(quantitative_data)                                # Join "quantitative_data" dataframe to the original "df"
+df                                                             # Print the updated dataframe "df"
+
+df.drop(['Embarked'], axis=1, inplace=True)                    # Drop the "Embarked" column
+df                                                             # Print the updated dataframe "df"
+
+quantitative_sex = pd.get_dummies(df.Sex, prefix='Sex')         # Create dummy variables for "Sex" column
+quantitative_sex                                              # Print the new dataframe "quantitative_sex"
+
+df = df.join(quantitative_sex)                                 # Join "quantitative_sex" dataframe to the original "df"
+df                                                             # Print the updated dataframe "df"
+
+df.drop(['Sex'], axis=1, inplace=True)                         # Drop the "Sex" column
+df                                                             # Print the updated dataframe "df"

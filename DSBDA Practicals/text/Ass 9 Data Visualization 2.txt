@@ -1,0 +1,78 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline
+import seaborn as sns
+
+# Read the CSV file into a pandas dataframe
+df = pd.read_csv('train.csv')
+# Print the dataframe
+df
+
+# Print the shape of the dataframe (number of rows and columns)
+df.shape
+
+# Print the size of the dataframe (total number of elements)
+df.size
+
+# Print the column names of the dataframe
+df.columns
+
+
+# Print the information about the dataframe including datatypes and missing values
+df.info()
+
+# Print the summary statistics of the dataframe
+df.describe()
+
+# Print the datatypes of the columns in the dataframe
+df.dtypes
+
+df.isnull()
+
+df.isnull().sum()
+
+# Plot a countplot using seaborn library for the 'Sex' column in the dataframe
+sns.countplot(df['Sex'])
+
+# Plot a countplot using seaborn library for the 'Survived' column in the dataframe
+sns.countplot(df['Survived'])
+
+# Plot a pie chart for the 'Sex' column in the dataframe using pandas library
+df['Sex'].value_counts().plot(kind='pie', autopct='%.2f')
+
+# Plot a pie chart for the 'Survived' column in the dataframe using pandas library
+df['Survived'].value_counts().plot(kind='pie', autopct='%.2f')
+
+# Plot a barplot using seaborn library for the relationship between 'Survived' and 'Age' columns in the dataframe
+sns.barplot(df['Survived'], df['Age'])
+
+# Plot a barplot using seaborn library for the relationship between 'Sex' and 'Survived' columns in the dataframe
+sns.barplot(df['Sex'], df['Survived'])
+
+# Plot a barplot using seaborn library for the relationship between 'Sex', 'Age' and 'Survived' columns in the dataframe
+sns.barplot(df['Sex'], df['Age'], hue=df['Survived'])
+
+# Plot a boxplot using seaborn library for the relationship between 'Sex' and 'Age' columns in the dataframe
+sns.boxplot(x=df['Sex'], y=df['Age'])
+
+# Plot a boxplot using seaborn library for the relationship between 'Sex', 'Age' and 'Survived' columns in the dataframe
+sns.boxplot(x=df['Sex'], y=df['Age'], hue='df[Survived'])
+
+# Create a cross tabulation using pandas library for the relationship between 'Sex' and 'Survived' columns in the dataframe
+pd.crosstab(df['Sex'], df['Survived'])
+
+# Create a cross tabulation using pandas library for the relationship between 'Age' and 'Survived' columns in the dataframe
+pd.crosstab(df['Age'], df['Survived'])
+
+# Plot a heatmap using seaborn library for the cross tabulation between 'Sex' and 'Survived' columns in the dataframe
+sns.heatmap(pd.crosstab(df['Sex'], df['Survived']))
+
+# Plot a heatmap using seaborn library for the cross tabulation between 'Age' and 'Survived' columns in the dataframe
+sns.heatmap(pd.crosstab(df['Age'], df['Survived']))
+
+# Plot a clustermap using seaborn library for the cross tabulation between 'Sex' and 'Survived' columns in the dataframe
+sns.clustermap(pd.crosstab(df['Sex'], df['Survived']))
+
+# Plot a clustermap using seaborn library for the cross tabulation between 'Age' and 'Survived' columns in the dataframe
+sns.clustermap(pd.crosstab(df['Age'], df['Survived']))
